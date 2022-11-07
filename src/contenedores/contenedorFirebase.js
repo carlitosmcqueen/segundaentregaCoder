@@ -34,14 +34,15 @@ class ContenedorFirebase {
     }
     async getAll() {
         try {
+            
             const result = []
-            const snapshot = await this.coleccion.get();
+            const snapshot = await this.db.get();
             snapshot.forEach(doc => {
                 result.push({ id: doc.id, ...doc.data() })
             })
             return result
         } catch (error) {
-            throw new Error(`Error al listar todo: ${error}`)
+            console.log(error)
         }
     }
     async deleteById(id) {

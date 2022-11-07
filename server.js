@@ -5,5 +5,5 @@ import daos from "./src/daos/index.js"
 
     const {carritoDao,productosDao } = await daos()
 
-console.log(await carritoDao.save({productos:["papas","supermario","jose"]}))
+console.log(await carritoDao.getAll())
 })()

@@ -1,7 +1,19 @@
-import app from './server.js'
+import express from "express";
 
-const PORT = 8080
-const server = app.listen(PORT, () => {
-    console.log(`Servidor http escuchando en el puerto ${server.address().port}`)
-})
-server.on('error', error => console.log(`Error en servidor ${error}`))
+const app = express();
+
+import { productosRouter } from './src/rutas/productos.js';
+import { carritoRouter } from './src/rutas/carrito.js';
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+
+app.use("/productos", productosRouter);
+app.use("/carrito", carritoRouter);
+
+
+
+
+app.listen(8080, () => {
+  console.log("Server ON");
+});

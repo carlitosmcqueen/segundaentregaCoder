@@ -3,6 +3,7 @@ import config from "../../config.js";
 
 await mongoose.connect(config.mongo.uri, config.mongo.option)
 class ContenedorMongo {
+    
     constructor(collecion,esquema){
         this.db = mongoose.model(collecion,esquema)
     }

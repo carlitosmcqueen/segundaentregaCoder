@@ -12,8 +12,6 @@ app.use("/productos", productosRouter);
 app.use("/carrito", carritoRouter);
 
 
-
-
 app.listen(8080, () => {
   console.log("Server ON");
 });

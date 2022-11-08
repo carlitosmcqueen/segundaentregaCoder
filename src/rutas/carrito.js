@@ -1,11 +1,10 @@
 import express from 'express';
 import { Router } from 'express';
 import daos from "../daos/index.js";
-
+const {carritoDao,productosDao } = await daos()
+const router = Router();
 const app = express();
 app.use(express.json());
-const {carritoDao,productosDao } = await daos()
-const router = Router()
 
 
 router.get("/", async (req, res) => {
@@ -41,8 +40,8 @@ router.post("/", async (req, res) => {
 router.post("/:id/productos/:id_producto", async (req, res) => {
     try {
         const { id, id_producto } = req.params;
-        const ProductoCompleto = await productosDao.getById(id_producto);
-        await carritoDao.addProduct(id, ProductoCompleto);
+        const productoCarrito = await productosDao.getById(id_producto);
+        await carritoDao.addProduct(id, productoCarrito);
         res.send("Producto agregado al carrito");
     } catch (err) {
         res.status(404).send(err);
@@ -55,7 +54,7 @@ router.put("/:id", (req, res) => {
         const { id } = req.params;
         const prodNuevo = req.body;
         carritoDao.updateById(id, prodNuevo);
-        res.send(`Producto con id ${id} actualizado`);
+        res.send(`se actualizo el producto`);
     } catch (err) {
         res.status(404).send(err.msg);
     }
@@ -65,7 +64,7 @@ router.delete("/:id", async (req, res) => {
     try {
         const { id } = req.params;
         await carritoDao.deleteById(id);
-        res.send(`El producto con id ${id} fue eliminado`);
+        res.send(`El producto fue eliminado`);
     } catch (err) {
         res.status(404).send(err.msg);
     }

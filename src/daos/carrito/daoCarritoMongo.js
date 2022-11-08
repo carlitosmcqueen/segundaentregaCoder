@@ -2,9 +2,7 @@ import ContenedorMongo from "../../contenedores/contenedorMongo.js";
 
 class carritoDaoMongo extends ContenedorMongo{
     constructor(){
-        super("carrito",{
-            productos: {type:[],default:[]},
-        })
+        super("carrito",{productos:Array})
     }
 
     async createCart(){

@@ -1,15 +1,19 @@
 import express from 'express';
 import {Router} from 'express';
-const router = Router()
-const app = express();
-app.use(express.json());
-
 import daos from "../daos/index.js";
 const {productosDao} = await daos()
+
+const router = Router()
+const app = express();
+
+
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 
 router.get("/", async (req, res) => {
     try {
         const data = await productosDao.getAll()
+        console.log("pio")
         res.send(data);
     } catch (err) {
         res.status(404).send(err);

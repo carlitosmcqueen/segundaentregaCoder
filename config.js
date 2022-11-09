@@ -2,6 +2,7 @@ const config = {
     mongo:{
         uri: "mongodb://localhost:27017/ecommerce",
         option:{
+            
         }
     },
     firebase:{

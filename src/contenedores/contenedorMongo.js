@@ -4,8 +4,8 @@ import config from "../../config.js";
 await mongoose.connect(config.mongo.uri, config.mongo.option)
 class ContenedorMongo {
     
-    constructor(collecion,esquema){
-        this.db = mongoose.model(collecion,esquema)
+    constructor(coleccion,esquema){
+        this.db = mongoose.model(coleccion,esquema)
     }
     async save(data) {
         try {

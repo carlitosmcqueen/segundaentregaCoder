@@ -4,7 +4,6 @@ import daos from "../daos/index.js";
 const {carritoDao,productosDao } = await daos()
 const router = Router();
 const app = express();
-app.use(express.json());
 
 
 router.get("/", async (req, res) => {
@@ -33,7 +32,7 @@ router.post("/", async (req, res) => {
         await carritoDao.createCart(data);
         res.send(data);
     } catch (err) {
-        res.status(404).send(err);
+        res.status(404).send(err);da
     }
 });
 

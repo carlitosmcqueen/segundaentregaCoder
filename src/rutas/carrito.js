@@ -1,14 +1,17 @@
 import express from 'express';
 import { Router } from 'express';
 import daos from "../daos/index.js";
-const {carritoDao,productosDao } = await daos()
+const { productosDao , carritoDao } = await daos
 const router = Router();
 const app = express();
+app.use(express.json());
 
 
 router.get("/", async (req, res) => {
     try {
         const data = await carritoDao.getAll()
+        console.log("pio")
+
         res.send(data);
     } catch (err) {
         res.status(404).send(err);
@@ -32,7 +35,7 @@ router.post("/", async (req, res) => {
         await carritoDao.createCart(data);
         res.send(data);
     } catch (err) {
-        res.status(404).send(err);da
+        res.status(404).send(err);
     }
 });
 
@@ -41,7 +44,7 @@ router.post("/:id/productos/:id_producto", async (req, res) => {
         const { id, id_producto } = req.params;
         const productoCarrito = await productosDao.getById(id_producto);
         await carritoDao.addProduct(id, productoCarrito);
-        res.send("Producto agregado al carrito");
+        res.send("se agrego");
     } catch (err) {
         res.status(404).send(err);
     }

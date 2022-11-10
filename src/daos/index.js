@@ -1,7 +1,8 @@
 import * as dotenv from "dotenv"
 dotenv.config()
+
 const daos = {
-    mongo: async ()=>{
+    mongo: async () =>{
         const {default :carritoDaoMongo } = await import("./carrito/daoCarritoMongo.js")
         const {default : productosDaoMongo} = await import("./productos/daoProductosMongo.js")
 
@@ -11,7 +12,7 @@ const daos = {
         }
     },
     firebase: async()=>{
-        const {default:carritoDaoFirebase} = await import("./carrito/daoCarritoFirebase.js")
+        const {default: carritoDaoFirebase} = await import("./carrito/daoCarritoFirebase.js")
         const {default: productosDaoFirebase} = await import("./productos/daoProductosFirebase.js")
 
         return{
@@ -20,4 +21,4 @@ const daos = {
         }
     }
 }
-export default daos[process.env.TIPO]
+export default daos[process.env.TIPO]()

@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import config from "../../config.js";
 
 await mongoose.connect(config.mongo.uri, config.mongo.option)
+
 class ContenedorMongo {
     
     constructor(coleccion,esquema){
@@ -53,7 +54,8 @@ class ContenedorMongo {
     }
     async deleteAll() {
         await this.db.deleteMany({});
-      }
+    }
+    
 }
 
 export default ContenedorMongo

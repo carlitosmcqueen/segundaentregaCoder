@@ -6,8 +6,9 @@ import { carritoRouter } from './src/rutas/carrito.js';
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use("/carrito", carritoRouter);
+
 app.use("/productos", productosRouter);
+app.use("/carrito", carritoRouter);
 
 
 app.listen(8080, () => {

@@ -1,7 +1,6 @@
 import admin from "firebase-admin"
 import config from "../../config.js"
-
-const connection = admin.initializeApp({
+admin.initializeApp({
     credential: admin.credential.cert(config.firebase),
     databaseURL: "https://segundaentrega-9bb37.firebaseio.com"
 })
@@ -10,13 +9,15 @@ const db = admin.firestore()
 
 class ContenedorFirebase {
     constructor(collection) {
-        this.db = db.collection(collection)
+        this.db = db,
+        this.collection = db.collection(collection);
+
     }
 
     async save(carrito) {
         try {
-            const data = await this.db.add(carrito)
-            return { ...carrito, id: data.id }
+            const data = await this.collection.add(carrito)
+            return {data}
         } catch (e) {
             console.error("No se pudo guardar", e)
         }
@@ -24,9 +25,8 @@ class ContenedorFirebase {
 
     async getById(id) {
         try {
-            const data = await this.db.doc(id).get()
-            const carrito = data.data()
-            return { ...carrito, id }
+            const data = await this.collection.doc(id).get()
+            return data.data()
         } catch (e) {
             console.error("no se pudo acceder al contenido", e)
         }
@@ -34,36 +34,33 @@ class ContenedorFirebase {
     }
     async getAll() {
         try {
-            
-            const result = []
-            const snapshot = await this.db.get();
-            snapshot.forEach(doc => {
-                result.push({ id: doc.id, ...doc.data() })
-            })
-            return result
+            const result = await this.collection.get();
+            const docs = result.docs;
+            const output = docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+            return output;
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }
     async deleteById(id) {
         try {
-            const data = await this.db.doc(id).delete()
-            return data 
-        } catch (e) {
-            console.error("No se pudo eliminar carrito", e)
+            const result = await this.collection.doc(id).delete();
+            return result;
+        } catch (error) {
+            console.log(error);
         }
     }
     async deleteAll(){
-        await this.db.deleteMany({})
+        await this.collection.deleteMany({})
     }
 
 
-    async updateById(element) {
+    async updateById(id,data){
         try {
-            const nuevoElement = await this.db.doc(element.id).set(element)
-            return nuevoElement
-        } catch (e) {
-            console.error("no se pudo modificar el contenido", e)
+            const result = await this.collection.doc(id).update(data);
+            return result;
+        } catch (error) {
+            console.log(error);
         }
     }
 }

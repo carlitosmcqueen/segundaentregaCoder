@@ -2,7 +2,7 @@ const config = {
     mongo:{
         uri: "mongodb://localhost:27017/ecommerce",
         option:{
-            
+            serverSelectionTimeoutMS: 5000,
         }
     },
     firebase:{

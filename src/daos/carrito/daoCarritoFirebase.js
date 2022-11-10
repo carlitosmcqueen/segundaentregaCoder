@@ -2,11 +2,11 @@ import ContenedorFirebase from '../../contenedores/contenedorFirebase.js';
 
 class carritoDaoFirebase extends ContenedorFirebase {
     constructor(){
-        super("carritos");
+        super("carrito");
     }
     async createCart() {
         try {
-            const cart = await this.create({ products: [] });
+            const cart = await this.save({ productos: [] });
             return cart;
         } catch (err) {
             console.log(err);
@@ -15,9 +15,9 @@ class carritoDaoFirebase extends ContenedorFirebase {
     }
     async addProduct(cartId, data) {
         try {
-            const cart = await this.readById(cartId);
-            const newCart = [...cart.products, data];
-            await this.update(cartId, { products: newCart });
+            const cart = await this.getById(cartId);
+            const newCart = [...cart.productos, data];
+            await this.updateById(cartId, { productos: newCart });
         } catch (err) {
             console.log(err);
         }
